@@ -104,36 +104,44 @@ def topMatches(prefs,person,n=5,similarity=sim_pearson):
 # 最相似的为 Lisa Rose
 # 所以应该根据  Lisa Rose 的品味(喜好，来源其撰写的影评)为Toby推荐
 
-# Gets recommendations for a person by using a weighted average
-# of every other user's rankings
+
+
+# 推荐物品
+# 利用 与其他所有人相似度对电影评分进行加权求和后平均，为 某人person 提供建议
 def getRecommendations(prefs,person,similarity=sim_pearson):
-  totals={}
-  simSums={}
-  for other in prefs:
-    # don't compare me to myself
-    if other==person: continue
-    sim=similarity(prefs,person,other)
+    totals={}  # 电影 相似度 加权 电影评分
+    simSums={} # 相似度之和
+    for other in prefs:
+        #不要和自己做比较
+        if other == person: 
+	    continue
+	# 与另一个人的 相似度得分
+        sim=similarity(prefs,person,other)
 
-    # ignore scores of zero or lower
-    if sim<=0: continue
-    for item in prefs[other]:
-	    
-      # only score movies I haven't seen yet
-      if item not in prefs[person] or prefs[person][item]==0:
-        # Similarity * Score
-        totals.setdefault(item,0)
-        totals[item]+=prefs[other][item]*sim
-        # Sum of similarities
-        simSums.setdefault(item,0)
-        simSums[item]+=sim
+        #忽略相似度为零或小于零的情况
+        if sim<=0: 
+	    continue
+        
+	# 遍历这个其他人看过的电影
+        for item in prefs[other]:
+            # 只对自己还未曾看过的影片item 进行评价
+            if item not in prefs[person] or prefs[person][item] == 0:
+                #相似度*评价值
+                totals.setdefault(item,0)
+		# 使用相似度对电影评分加权后求和
+                totals[item] += prefs[other][item] * sim
+                # 相似度之和
+                simSums.setdefault(item,0)
+                simSums[item] += sim
 
-  # Create the normalized list
-  rankings=[(total/simSums[item],item) for item,total in totals.items()]
+    # 建立一个归一化的列表 加权求和归一化值,电影名
+    rankings=[(total/simSums[item],item) for item,total in totals.items()]   
 
-  # Return the sorted list
-  rankings.sort()
-  rankings.reverse()
-  return rankings
+    # 返回经过排序的列表
+    rankings.sort()# 升序 小->大 
+    rankings.reverse()# 逆序 大->小
+    return rankings
+
 
 def transformPrefs(prefs):
   result={}
