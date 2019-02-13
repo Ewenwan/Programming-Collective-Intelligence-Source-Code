@@ -222,6 +222,9 @@ def transformPrefs(prefs):
 
 https://www.cnblogs.com/xiaoYu3328/p/5173854.html
 
+![](https://github.com/ahangchen/PCInotes/raw/master/imgs/%E5%8F%91%E7%8E%B0%E7%BE%A4%E7%BB%84.png)
+
+
 	聚类是把相似的对象通过静态分类的方法分成不同的组别或者更多的子集（subset），
 	这样让在同一个子集中的成员对象都有相似的一些属性，
 	常见的包括在坐标系中更加短的空间距离等。
