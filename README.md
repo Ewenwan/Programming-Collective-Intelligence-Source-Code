@@ -43,7 +43,8 @@ http://pan.baidu.com/s/1ntKHRPB
 ```python
 # recommendations.py
 # 一个涉及影评者及其对几部影片评分情况的字典 嵌套字典
-# 用户偏好 数据集
+# 用户偏好 数据集 每个用户 的 多部电影评分
+# 使用字典存储数据很方便进行查询和修改
 critics={'Lisa Rose': {'Lady in the Water': 2.5, 'Snakes on a Plane': 3.5,
  'Just My Luck': 3.0, 'Superman Returns': 3.5, 'You, Me and Dupree': 2.5, 
  'The Night Listener': 3.0},
@@ -52,5 +53,93 @@ critics={'Lisa Rose': {'Lady in the Water': 2.5, 'Snakes on a Plane': 3.5,
  'You, Me and Dupree': 3.5}, 
  ...
  }
+ 
+# 访问 & 修改         人           电影名                评分
+# prtint(critics['Lisa Rose']['Lady in the Water']) ===> 2.5
+
 
 ```
+当然，我们也可以去网上下载数据量更大的数据集供我们学习，
+
+如[GroupLens项目组开发的涉及电影评价的真实数据集](https://grouplens.org/datasets/)
+
+或者通过获取RSS订阅源数据来构建数据集。
+
+
+> 寻找相近用户
+    
+    使用一种方法确定人们在品味方面的相似程度。
+    
+    评价值           特点
+    欧几里德距离     多维空间中两点之间的距离，用来衡量二者的相似度。距离越小，相似度越高。
+
+    皮尔逊相关度评价 判断两组数据与某一直线拟合程度的一种度量。
+                    在数据不是很规范的时候
+                   （如影评者对影片的评价总是相对于平均水平偏离很大时），
+                    会给出更好的结果。
+                    相关系数越大，相似度越高。
+    jaccard系数
+    曼哈顿距离
+    
+                    
+```python
+# 返回一个有关person1和person2的基于欧式距离的相似度评价
+def sim_distance(prefs,person1,person2):
+    # 获取共有条目列表 shared_items
+    si={}
+    for item in prefs[person1]:
+	# 数据匹配
+        if item in prefs[person2]:
+            si[item]=1
+    
+    # if they have no ratings in common, return 0
+    # 如果两者没有 共同之处，计算不了
+    if len(si)==0:
+	# 无共有条目
+	return 0
+    
+    # 对共有条目的平方 计算欧氏距离(差平方) 越相近距离越短
+    sum_of_squares=sum([pow(prefs[person1][item]-prefs[person2][item],2) 
+                      for item in prefs[person1] if item in prefs[person2]])
+    # 加1(避免除零)后取其倒数，新函数返回值介于0~1之间，返回1表示两人具有一样的偏好
+    return 1/(1+sum_of_squares)
+    
+# 返回p1和p2之间的皮尔逊相关系数 评价指标
+def sim_pearson(prefs,p1,p2):
+    # Get the list of mutually rated items
+    # 得到双方都 评价过的 商品列表
+    si={}
+    for item in prefs[p1]: 
+        if item in prefs[p2]: 
+	    si[item]=1
+    # 得到 共有 条目数量
+    n=len(si)
+	
+    # if they are no ratings in common, return 0
+    if n==0:
+	# 没有共有偏好
+        return 0
+	
+    # 对每个用户所有共有偏好 求和
+    sum1=sum([prefs[p1][it] for it in si])
+    sum2=sum([prefs[p2][it] for it in si])
+  
+    # 平方和
+    sum1Sq=sum([pow(prefs[p1][it],2) for it in si])
+    sum2Sq=sum([pow(prefs[p2][it],2) for it in si])	
+     
+    # 两方乘积之和
+    pSum=sum([prefs[p1][it]*prefs[p2][it] for it in si])
+  
+    # 计算皮尔逊评价值 Calculate r (Pearson score)
+    num=pSum-(sum1*sum2/n)
+    den=sqrt((sum1Sq-pow(sum1,2)/n)*(sum2Sq-pow(sum2,2)/n))
+    if den==0: 
+	return 0
+
+    r=num/den
+
+    return r
+```
+    
+
