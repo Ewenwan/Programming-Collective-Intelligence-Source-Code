@@ -143,15 +143,18 @@ def getRecommendations(prefs,person,similarity=sim_pearson):
     return rankings
 
 
+# 匹配商品
+# 商品与人员对换
 def transformPrefs(prefs):
-  result={}
-  for person in prefs:
-    for item in prefs[person]:
-      result.setdefault(item,{})
-      
-      # Flip item and person
-      result[item][person]=prefs[person][item]
-  return result
+    result={}
+    for person in prefs:
+        for item in prefs[person]:
+            result.setdefault(item,{})
+
+            # 将物品和人员对调
+            result[item][person]=prefs[person][item];
+	    # 电影:{人物:评分}  <--- 人物:{电影:评分}
+    return result
 
 
 def calculateSimilarItems(prefs,n=10):
