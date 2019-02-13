@@ -99,6 +99,11 @@ def topMatches(prefs,person,n=5,similarity=sim_pearson):
     scores.reverse()# 逆序 大->小
     return scores[0:n] # 取前n个
 
+# 测试
+# topMatches(critics,'Toby',n=3)
+# 最相似的为 Lisa Rose
+# 所以应该根据  Lisa Rose 的品味(喜好，来源其撰写的影评)为Toby推荐
+
 # Gets recommendations for a person by using a weighted average
 # of every other user's rankings
 def getRecommendations(prefs,person,similarity=sim_pearson):
