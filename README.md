@@ -38,6 +38,8 @@ http://pan.baidu.com/s/1ntKHRPB
 
 根据群体偏好来为人们提供推荐。有许多针对于此的应用，如在线购物中的**商品推荐、热门网站的推荐，以及帮助人们寻找音乐和影片的应用**。
 
+![](https://github.com/ahangchen/PCInotes/raw/master/imgs/%E6%8F%90%E4%BE%9B%E6%8E%A8%E8%8D%90.png)
+
 > 搜集偏好
 
 ```python
