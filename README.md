@@ -38,5 +38,19 @@ http://pan.baidu.com/s/1ntKHRPB
 
 根据群体偏好来为人们提供推荐。有许多针对于此的应用，如在线购物中的**商品推荐、热门网站的推荐，以及帮助人们寻找音乐和影片的应用**。
 
+> 搜集偏好
 
+```python
+# recommendations.py
+# 一个涉及影评者及其对几部影片评分情况的字典 嵌套字典
+# 用户偏好 数据集
+critics={'Lisa Rose': {'Lady in the Water': 2.5, 'Snakes on a Plane': 3.5,
+ 'Just My Luck': 3.0, 'Superman Returns': 3.5, 'You, Me and Dupree': 2.5, 
+ 'The Night Listener': 3.0},
+'Gene Seymour': {'Lady in the Water': 3.0, 'Snakes on a Plane': 3.5, 
+ 'Just My Luck': 1.5, 'Superman Returns': 5.0, 'The Night Listener': 3.0, 
+ 'You, Me and Dupree': 3.5}, 
+ ...
+ }
 
+```
