@@ -141,5 +141,64 @@ def sim_pearson(prefs,p1,p2):
 
     return r
 ```
+
+	为评论者打分
+	 
+```python
+# 返回 与 persor人 品味最相似的前五个人
+def topMatches(prefs,person,n=5,similarity=sim_pearson):
+    # person 和 除去 person本人之外的其他人 计算相似度 得分
+    scores=[(similarity(prefs,person,other),other) 
+                  for other in prefs if other != person]
     
+    scores.sort() # 升序排列
+    scores.reverse()# 逆序 大->小
+    return scores[0:n] # 取前n个
+
+# 测试
+# topMatches(critics,'Toby',n=3)
+# 最相似的为 Lisa Rose
+# 所以应该根据  Lisa Rose 的品味(喜好，来源其撰写的影评)为Toby推荐
+
+```
+
+> 为用户推荐电影,根据和其他用户的相似度和未看电影的平方加权求和后求均值，后逆序推荐
+```python
+# 推荐物品
+# 利用 与其他所有人相似度对电影评分进行加权求和后平均，为 某人person 提供建议
+def getRecommendations(prefs,person,similarity=sim_pearson):
+    totals={}  # 电影 相似度 加权 电影评分
+    simSums={} # 相似度之和
+    for other in prefs:
+        #不要和自己做比较
+        if other == person: 
+	    continue
+	# 与另一个人的 相似度得分
+        sim=similarity(prefs,person,other)
+
+        #忽略相似度为零或小于零的情况
+        if sim<=0: 
+	    continue
+        
+	# 遍历这个其他人看过的电影
+        for item in prefs[other]:
+            # 只对自己还未曾看过的影片item 进行评价
+            if item not in prefs[person] or prefs[person][item] == 0:
+                #相似度*评价值
+                totals.setdefault(item,0)
+		# 使用相似度对电影评分加权后求和
+                totals[item] += prefs[other][item] * sim
+                # 相似度之和
+                simSums.setdefault(item,0)
+                simSums[item] += sim
+
+    # 建立一个归一化的列表 加权求和归一化值,电影名
+    rankings=[(total/simSums[item],item) for item,total in totals.items()]   
+
+    # 返回经过排序的列表
+    rankings.sort()# 升序 小->大 
+    rankings.reverse()# 逆序 大->小
+    return rankings
+```
+
 
