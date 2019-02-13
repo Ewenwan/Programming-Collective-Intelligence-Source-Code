@@ -267,7 +267,44 @@ https://www.cnblogs.com/xiaoYu3328/p/5173854.html
 	图中各数据项之间的距离远近，对应于它们彼此间的差异程度。（欧几里德距离算法）
 	
 	
-	
+# 第四章 搜索与排名
+![](https://github.com/ahangchen/PCInotes/raw/master/imgs/%E6%90%9C%E7%B4%A2%E4%B8%8E%E6%8E%92%E5%90%8D.png)
+
+# 第五章 优化
+![](https://github.com/ahangchen/PCInotes/raw/master/imgs/%E4%BC%98%E5%8C%96.png)
+
+
+# 第六章 过滤
+![](https://github.com/ahangchen/PCInotes/raw/master/imgs/%E6%96%87%E6%A1%A3%E8%BF%87%E6%BB%A4.png)
+
+
+# 第七章 决策树
+![](https://github.com/ahangchen/PCInotes/raw/master/imgs/%E5%86%B3%E7%AD%96%E6%A0%91%E5%BB%BA%E6%A8%A1.png)
+
+
+# 第八章 价格模型
+![](https://github.com/ahangchen/PCInotes/raw/master/imgs/%E6%9E%84%E5%BB%BA%E4%BB%B7%E6%A0%BC%E6%A8%A1%E5%9E%8B.png)
+
+
+# 第九章 SVM
+![](https://github.com/ahangchen/PCInotes/raw/master/imgs/%E6%A0%B8%E6%96%B9%E6%B3%95%E5%92%8CSVM.png)
+
+
+# 第十章 独立特征
+![](https://github.com/ahangchen/PCInotes/raw/master/imgs/%E5%AF%BB%E6%89%BE%E7%8B%AC%E7%AB%8B%E7%89%B9%E5%BE%81.png)
+
+# 第十一章 智能进化
+![](https://github.com/ahangchen/PCInotes/raw/master/imgs/%E6%99%BA%E8%83%BD%E8%BF%9B%E5%8C%96.png)
+
+
+# 第十二章 算法总结
+![](https://github.com/ahangchen/PCInotes/raw/master/imgs/%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93.png)
+
+
+
+
+
+
 
 
 
